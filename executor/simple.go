@@ -550,6 +550,7 @@ func (e *SimpleExec) executeUse(s *ast.UseStmt) error {
 }
 
 func (e *SimpleExec) executeBegin(ctx context.Context, s *ast.BeginStmt) error {
+	logutil.BgLogger().Info("hello transaction", zap.Uint64("conn", e.ctx.GetSessionVars().ConnectionID))
 	// If BEGIN is the first statement in TxnCtx, we can reuse the existing transaction, without the
 	// need to call NewTxn, which commits the existing transaction and begins a new one.
 	txnCtx := e.ctx.GetSessionVars().TxnCtx
